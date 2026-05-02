@@ -31,10 +31,11 @@ jobs:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE }}
         run: python run.py
 
-      - name: Commit and push videos.json
+      - name: Upload videos.json to Cafe24 via FTP
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/videos.json
-          git diff --staged --quiet || git commit -m "chore: update videos.json [$(date '+%Y-%m-%d')]"
-          git push
+          curl -T data/videos.json \
+            "ftp://${{ secrets.CAFE24_FTP_HOST }}/www/api/youtube/videos.json" \
+            --user "${{ secrets.CAFE24_FTP_USER }}:${{ secrets.CAFE24_FTP_PASS }}" \
+            --ftp-create-dirs \
+            --ssl-reqd \
+            --silent --show-error
