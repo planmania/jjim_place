@@ -8,7 +8,7 @@ INSERT_ENDPOINT = os.environ.get('CAFE24_INSERT_URL', '')
 INSERT_TOKEN    = os.environ.get('CAFE24_INSERT_TOKEN', '')
 
 # ─── 수집 설정 ────────────────────────────────────────────────
-MAX_RESULTS_PER_KEYWORD = 10
+MAX_RESULTS_PER_KEYWORD = 1
 MIN_VIEW_COUNT          = 10_000  # 최소 조회수 필터
 
 # ─── 키워드 → (ca_name, province_ko) ─────────────────────────

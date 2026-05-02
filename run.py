@@ -1,9 +1,10 @@
 import sys
+import json
+from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
 
 from collector import collect_all
-from poster import post_to_cafe24
 
 
 def main():
@@ -13,15 +14,13 @@ def main():
         print('[INFO] 수집된 영상 없음. 종료.')
         sys.exit(0)
 
-    result = post_to_cafe24(videos)
-    print(f'[DONE] 등록 {result.get("inserted", 0)}개 · '
-          f'중복 {result.get("skipped", 0)}개 · '
-          f'오류 {len(result.get("errors", []))}개')
-    for e in result.get('errors', []):
-        print(f'  [ERR] {e}')
-
-    if not result.get('success') and not result.get('dry_run'):
-        sys.exit(1)
+    out_path = Path(__file__).parent / 'data' / 'videos.json'
+    out_path.parent.mkdir(exist_ok=True)
+    out_path.write_text(
+        json.dumps(videos, ensure_ascii=False, indent=2),
+        encoding='utf-8',
+    )
+    print(f'[DONE] {len(videos)}개 → data/videos.json 저장 완료')
 
 
 if __name__ == '__main__':
