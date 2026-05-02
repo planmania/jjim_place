@@ -37,5 +37,4 @@ jobs:
             "ftp://${{ secrets.CAFE24_FTP_HOST }}/www/api/youtube/videos.json" \
             --user "${{ secrets.CAFE24_FTP_USER }}:${{ secrets.CAFE24_FTP_PASS }}" \
             --ftp-create-dirs \
-            --ssl-reqd \
             --silent --show-error
