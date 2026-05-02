@@ -1,7 +1,7 @@
 import os
 
 # ─── YouTube Data API v3 ──────────────────────────────────────
-YOUTUBE_API_KEY = os.environ.get('YOUTUBE_API_KEY', '')
+YOUTUBE_API_KEY = os.environ.get('YOUTUBE_API_KEY') or os.environ.get('YOUTUBE', '')
 
 # ─── Cafe24 엔드포인트 ────────────────────────────────────────
 INSERT_ENDPOINT = os.environ.get('CAFE24_INSERT_URL', '')

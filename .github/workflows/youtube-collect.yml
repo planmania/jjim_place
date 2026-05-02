@@ -25,7 +25,7 @@ jobs:
 
       - name: Run collector
         env:
-          YOUTUBE_API_KEY:    ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_API_KEY:    ${{ secrets.YOUTUBE }}
           CAFE24_INSERT_URL:  ${{ secrets.CAFE24_INSERT_URL }}
           CAFE24_INSERT_TOKEN: ${{ secrets.CAFE24_INSERT_TOKEN }}
         run: python run.py
