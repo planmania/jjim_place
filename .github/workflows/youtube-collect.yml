@@ -29,6 +29,7 @@ jobs:
       - name: Run collector
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE }}
+          MAX_KEYWORDS: 1   # 테스트용 — 운영 시 이 줄 삭제
         run: python run.py
 
       - name: Upload videos.json to Cafe24 via FTP

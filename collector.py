@@ -1,5 +1,6 @@
 import re
 from googleapiclient.discovery import build
+import os
 from config import YOUTUBE_API_KEY, KEYWORD_CONFIG, MAX_RESULTS_PER_KEYWORD, MIN_VIEW_COUNT
 
 
@@ -99,7 +100,10 @@ def collect_all() -> list:
     all_vids = []
     seen     = set()
 
-    for keyword, (ca_name, province_ko) in KEYWORD_CONFIG.items():
+    max_kw = int(os.environ.get('MAX_KEYWORDS', 0)) or len(KEYWORD_CONFIG)
+    keywords = list(KEYWORD_CONFIG.items())[:max_kw]
+
+    for keyword, (ca_name, province_ko) in keywords:
         print(f'[INFO] 수집: {keyword}')
         videos = search_videos(youtube, keyword)
         new = 0
