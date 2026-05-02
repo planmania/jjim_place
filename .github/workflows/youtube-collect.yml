@@ -5,9 +5,6 @@ on:
     - cron: '0 0 * * 1'  # 매주 월요일 09:00 KST (UTC 00:00)
   workflow_dispatch:       # 수동 실행 (테스트용)
 
-permissions:
-  contents: write          # data/videos.json commit/push 권한
-
 jobs:
   collect:
     runs-on: ubuntu-latest
@@ -28,13 +25,7 @@ jobs:
 
       - name: Run collector
         env:
-          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_API_KEY:    ${{ secrets.YOUTUBE_API_KEY }}
+          CAFE24_INSERT_URL:  ${{ secrets.CAFE24_INSERT_URL }}
+          CAFE24_INSERT_TOKEN: ${{ secrets.CAFE24_INSERT_TOKEN }}
         run: python run.py
-
-      - name: Commit and push videos.json
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/videos.json
-          git diff --staged --quiet || git commit -m "chore: update videos $(date +%Y-%m-%d)"
-          git push
