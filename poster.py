@@ -21,6 +21,7 @@ def post_to_cafe24(videos: list) -> dict:
             },
             timeout=120,
         )
+        print(f'[DEBUG] HTTP {resp.status_code} / {len(resp.content)} bytes / {repr(resp.text[:300])}')
         resp.raise_for_status()
         return resp.json()
     except requests.exceptions.HTTPError as e:
