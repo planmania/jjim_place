@@ -34,7 +34,7 @@ jobs:
       - name: Upload videos.json to Cafe24 via FTP
         run: |
           curl -T data/videos.json \
-            "ftp://${{ secrets.CAFE24_FTP_HOST }}/www/api/youtube/videos.json" \
+            "ftp://${{ secrets.CAFE24_FTP_HOST }}/api/youtube/videos.json" \
             --user "${{ secrets.CAFE24_FTP_USER }}:${{ secrets.CAFE24_FTP_PASS }}" \
             --ftp-create-dirs \
             --silent --show-error
