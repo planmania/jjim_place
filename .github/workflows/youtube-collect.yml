@@ -6,7 +6,7 @@ on:
   workflow_dispatch:       # 수동 실행 (테스트용)
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   collect:
@@ -29,13 +29,7 @@ jobs:
       - name: Run collector
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE }}
+          CAFE24_INSERT_URL: ${{ secrets.CAFE24_INSERT_URL }}
+          CAFE24_INSERT_TOKEN: ${{ secrets.CAFE24_INSERT_TOKEN }}
           MAX_KEYWORDS: 1   # 테스트용 — 운영 시 이 줄 삭제
         run: python run.py
-
-      - name: Upload videos.json to Cafe24 via FTP
-        run: |
-          curl -T data/videos.json \
-            "ftp://${{ secrets.CAFE24_FTP_HOST }}/api/youtube/videos.json" \
-            --user "${{ secrets.CAFE24_FTP_USER }}:${{ secrets.CAFE24_FTP_PASS }}" \
-            --ftp-create-dirs \
-            --silent --show-error
